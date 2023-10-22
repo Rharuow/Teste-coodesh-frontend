@@ -1,16 +1,17 @@
-import { PieChart } from "@/component/PieChart";
+import { PieChart } from "@/components/PieChart";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col py-3 px-2">
+    <main className="flex min-h-screen flex-col gap-4 px-2 py-3">
       <div className="flex justify-center">
         <Image
           src="/logo.svg"
+          priority
           width={0}
           height={0}
           sizes="100vw"
-          className="w-52 h-auto"
+          className="h-auto w-52"
           alt="SpaceX logo"
         />
       </div>
