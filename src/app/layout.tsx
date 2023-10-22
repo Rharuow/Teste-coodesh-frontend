@@ -1,6 +1,9 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "./globals.css";
+
+import { ThemeProvider } from "@/components/providers/theme";
+import { ModeToggle } from "@/components/ModeToggle";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,7 +23,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ModeToggle />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
