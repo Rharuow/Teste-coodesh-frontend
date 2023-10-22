@@ -1,4 +1,4 @@
-import { PieChart } from "@/components/PieChart";
+import { PieChart } from "./components/PieChart";
 import Image from "next/image";
 
 export default function Home() {
@@ -18,6 +18,7 @@ export default function Home() {
       <div className="flex p-3">
         <PieChart />
       </div>
+      <div className="flex p-3"></div>
     </main>
   );
 }
