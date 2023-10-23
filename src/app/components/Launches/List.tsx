@@ -25,9 +25,7 @@ import empty from "@public/no-launches.json";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -47,11 +45,13 @@ export const List = () => {
   const { register, control, setValue } = useForm<{
     search: string;
     results: FilterParams["results"];
+    limit?: FilterParams["limit"];
   }>();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const searchWatch = useWatch({ control, name: "search" });
   const resultsWatch = useWatch({ control, name: "results" });
+  const limitWatch = useWatch({ control, name: "limit" });
 
   const { data, isLoading } = useListLaunches({
     page,
@@ -72,6 +72,7 @@ export const List = () => {
       <div className="w-full">
         <div className="flex items-center gap-3 py-4">
           <input type="hidden" {...register("results")} />
+          <input type="hidden" {...register("limit")} />
           <Input
             placeholder="Nome da missão ou do foguete"
             {...register("search", { onChange: () => setPage(1) })}
@@ -84,13 +85,33 @@ export const List = () => {
               setPage(1);
             }}
           >
-            <SelectTrigger className="max-w-[180px]">
+            <SelectTrigger className="max-w-[130px]">
               <SelectValue placeholder="Resultados" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Todos</SelectItem>
               <SelectItem value="success">Sucesso</SelectItem>
               <SelectItem value="fail">Falha</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select
+            onValueChange={(value) => {
+              setLimit(Number(value));
+              setPage(1);
+            }}
+          >
+            <SelectTrigger className="max-w-[80px]">
+              <SelectValue placeholder="A cada" />
+            </SelectTrigger>
+            <SelectContent>
+              {Array(10)
+                .fill(null)
+                .map((_, index) => (
+                  <SelectItem key={index} value={String((index + 1) * 5)}>
+                    {(index + 1) * 5}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
         </div>
