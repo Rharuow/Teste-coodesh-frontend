@@ -6,10 +6,14 @@
 
 NextJs with Tailwind and typescript.
 
+### Descrição
+
+This project are powered by API REST developed to <a href="https://github.com/Rharuow/Teste-coodesh-backend" target="_blank">Backend Fullstack Test</a>. The data are feed by <a href="https://github.com/r-spacex/SpaceX-API">SpaceX public API</a>.
+
 #### Install and Start
 
 ```bash
-npm i && npm run dev
+git clone git@github.com:Rharuow/Teste-coodesh-frontend.git && cd ./Teste-coodesh-frontend && npm i && npm run dev
 ```
 
 #### What have in this project?
@@ -21,3 +25,19 @@ npm i && npm run dev
 [x] Client Components
 
 - Using NextJs 13, put 'use client' at top of file component, the components are sent to client, behaving like a tipical React Component.
+
+[x] Pure Component
+
+- Components isolated and utils directories keep functions with a single responsibility.
+
+[x] Isolated Modules
+
+- Components Modules and Functions Modules exported are available to be used, but can't be possible make modification.
+
+[x] Responsivity
+
+- In the sm, md and lg breakpoints, the application assume different layouts to respect different screen sizes. To be better the User Interface.
+
+[x] Reactive filter
+
+- Without button to submit form, the fields are watched and change de data values while they are changed. To be better the User Experience.
