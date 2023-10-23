@@ -62,11 +62,13 @@ export type Launch = {
 
 export type FilterParams = {
   search?: string;
+  results?: "fail" | "success";
   limit?: number;
   page?: number;
 };
 
 export const listLaunches = async (filter?: FilterParams) => {
+  console.log(filter);
   const launches = await api.get<{
     results: Array<Launch>;
     totalDocs: number;

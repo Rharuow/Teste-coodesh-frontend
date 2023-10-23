@@ -22,6 +22,16 @@ import { useListLaunches } from "@/hooks/launchesQuery/useQuery";
 import { createPagesList } from "./utils/createPagesList";
 
 import empty from "@public/no-launches.json";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { FilterParams } from "@/service/resources/launches";
 
 const headerTableItems = [
   "Id",
@@ -34,18 +44,20 @@ const headerTableItems = [
 ];
 
 export const List = () => {
-  const { register, control } = useForm<{
+  const { register, control, setValue } = useForm<{
     search: string;
-    results: "success" | "fail";
+    results: FilterParams["results"];
   }>();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const searchWatch = useWatch({ control, name: "search" });
+  const resultsWatch = useWatch({ control, name: "results" });
 
   const { data, isLoading } = useListLaunches({
     page,
     limit,
     search: searchWatch,
+    results: resultsWatch,
   });
 
   const listPages =
@@ -58,11 +70,29 @@ export const List = () => {
       </Text>
 
       <div className="w-full">
-        <div className="flex items-center py-4">
+        <div className="flex items-center gap-3 py-4">
+          <input type="hidden" {...register("results")} />
           <Input
             placeholder="Nome da missão ou do foguete"
             {...register("search", { onChange: () => setPage(1) })}
           />
+          <Select
+            onValueChange={(value) => {
+              value !== "all"
+                ? setValue("results", value as FilterParams["results"])
+                : setValue("results", undefined);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger className="max-w-[180px]">
+              <SelectValue placeholder="Resultados" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todos</SelectItem>
+              <SelectItem value="success">Sucesso</SelectItem>
+              <SelectItem value="fail">Falha</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div className="rounded-md border">
           <Table>
@@ -143,9 +173,9 @@ export const List = () => {
             </Text>
           </div>
           <div className="flex flex-1 justify-center gap-2 overflow-hidden">
-            {listPages?.map((pg) => (
+            {listPages?.map((pg, index) => (
               <Button
-                key={pg}
+                key={index}
                 className={`rounded-full ${
                   pg === page ? "bg-slate-300" : "bg-slate-600 text-white"
                 }`}

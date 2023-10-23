@@ -8,6 +8,7 @@ export const useListLaunches = (filter?: FilterParams) =>
       String(filter?.page),
       String(filter?.limit),
       String(filter?.search),
+      String(filter?.results),
     ],
     queryFn: () => listLaunches(filter),
     retry: false,
