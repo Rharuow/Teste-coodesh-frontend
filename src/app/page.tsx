@@ -1,4 +1,5 @@
 import { BarChart } from "./components/BarChart";
+import { List } from "./components/Launches/List";
 import { PieChart } from "./components/PieChart";
 import Image from "next/image";
 
@@ -21,6 +22,9 @@ export default function Home() {
       </div>
       <div className="flex p-3">
         <BarChart />
+      </div>
+      <div className="flex p-3">
+        <List />
       </div>
     </main>
   );
