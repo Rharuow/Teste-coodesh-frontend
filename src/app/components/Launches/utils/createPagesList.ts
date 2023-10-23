@@ -5,13 +5,13 @@ export const createPagesList = ({
   totalPages: number;
   page: number;
 }) => {
-  const pages = Array(4)
+  const pages = Array(totalPages > 4 ? 4 : totalPages)
     .fill(null)
     .map((_, index, self) => {
       if (page + 3 >= totalPages) return totalPages - (self.length - index);
       if (index < self.length - 1) return index + page;
     });
 
-  pages.push(totalPages);
+  totalPages > 1 ? pages.push(totalPages) : (pages[0] = totalPages);
   return pages;
 };

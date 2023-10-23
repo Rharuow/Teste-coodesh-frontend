@@ -56,7 +56,7 @@ export const List = () => {
         <div className="flex items-center py-4">
           <Input
             placeholder="Nome da missão ou do foguete"
-            {...register("search")}
+            {...register("search", { onChange: () => setPage(1) })}
           />
         </div>
         <div className="rounded-md border">
