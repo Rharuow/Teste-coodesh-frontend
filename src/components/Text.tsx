@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 export const Text = ({
   children,
@@ -8,6 +9,6 @@ export const Text = ({
   className?: string;
 }) => {
   return (
-    <p className={`font-bold text-slate-800 ${className || " "}`}>{children}</p>
+    <p className={twMerge("font-bold text-slate-800", className)}>{children}</p>
   );
 };
