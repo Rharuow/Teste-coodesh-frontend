@@ -3,7 +3,7 @@ export const optionsReactChart = (theme: "dark" | "light" | "system") => ({
     legend: {
       labels: {
         font: {
-          size: 16,
+          size: 12,
           weight: "700",
         },
         color: theme === "dark" ? "#ffffff" : "#334155",

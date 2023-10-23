@@ -1,4 +1,5 @@
 import { BarChart } from "./components/BarChart";
+import { List } from "./components/Launches/List";
 import { PieChart } from "./components/PieChart";
 import Image from "next/image";
 
@@ -16,11 +17,16 @@ export default function Home() {
           alt="SpaceX logo"
         />
       </div>
-      <div className="flex p-3">
-        <PieChart />
+      <div className="flex flex-col md:flex-row">
+        <div className="flex p-3">
+          <PieChart />
+        </div>
+        <div className="flex p-3">
+          <BarChart />
+        </div>
       </div>
-      <div className="flex p-3">
-        <BarChart />
+      <div className="flex grow p-3">
+        <List />
       </div>
     </main>
   );

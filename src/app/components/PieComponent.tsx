@@ -25,7 +25,17 @@ export const PieComponent = ({
         labels,
         datasets,
       }}
-      options={optionsReactChart(theme as Theme)}
+      options={{
+        ...optionsReactChart(theme as Theme),
+        plugins: {
+          ...optionsReactChart(theme as Theme).plugins,
+          legend: {
+            ...optionsReactChart(theme as Theme).plugins.legend,
+            align: "start",
+            position: "bottom",
+          },
+        },
+      }}
     />
   );
 };

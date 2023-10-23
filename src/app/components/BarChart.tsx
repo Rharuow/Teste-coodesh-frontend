@@ -42,7 +42,7 @@ export const BarChart = async () => {
 
   return (
     <div className="flex w-full flex-wrap justify-center gap-3 rounded bg-accent p-3">
-      <Text className="text-right text-sm text-slate-400">
+      <Text className="text-center text-sm text-slate-400">
         Lançamentos por ano de cada Foguete
       </Text>
       <BarComponent

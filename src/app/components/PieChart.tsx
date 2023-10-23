@@ -21,17 +21,19 @@ export const PieChart = async () => {
       <Text className="text-right text-sm text-slate-400">
         Lançamentos por foguete
       </Text>
-      <PieComponent
-        labels={data.rockets.map((rocket) => rocket.name)}
-        datasets={[
-          {
-            data: data.rockets.map((rocket) => rocket.launches.length),
-            label: "Número de lançamentos",
-            backgroundColor: data.rockets.map((rocket) => rocket.color),
-            weight: 700,
-          },
-        ]}
-      />
+      <div className="flex w-full justify-center">
+        <PieComponent
+          labels={data.rockets.map((rocket) => rocket.name)}
+          datasets={[
+            {
+              data: data.rockets.map((rocket) => rocket.launches.length),
+              label: "Número de lançamentos",
+              backgroundColor: data.rockets.map((rocket) => rocket.color),
+              weight: 700,
+            },
+          ]}
+        />
+      </div>
       <div className="flex w-full flex-col gap-1 bg-accent">
         <Text className="text-right text-sm text-slate-400">
           Resultados dos lançamentos

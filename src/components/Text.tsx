@@ -8,7 +8,5 @@ export const Text = ({
   children: ReactNode;
   className?: string;
 }) => {
-  return (
-    <p className={twMerge("font-bold text-slate-800", className)}>{children}</p>
-  );
+  return <p className={twMerge("font-bold ", className)}>{children}</p>;
 };
