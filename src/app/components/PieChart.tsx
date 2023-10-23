@@ -17,7 +17,10 @@ export const PieChart = async () => {
   }>("/stats/pie");
 
   return (
-    <div className="flex w-full flex-wrap gap-3 rounded bg-accent p-3">
+    <div className="flex w-full flex-wrap justify-center gap-3 rounded bg-accent p-3">
+      <Text className="text-right text-sm text-slate-400">
+        Lançamentos por foguete
+      </Text>
       <PieComponent
         labels={data.rockets.map((rocket) => rocket.name)}
         datasets={[
