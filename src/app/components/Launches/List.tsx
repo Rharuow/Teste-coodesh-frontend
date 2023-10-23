@@ -1,6 +1,7 @@
 "use client";
 import { Text } from "@/components/Text";
 import { Input } from "@/components/ui/input";
+import { useListLaunches } from "@/hooks/launchesQuery/useQuery";
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 
@@ -9,6 +10,8 @@ export const List = () => {
     search: string;
     results: "success" | "fail";
   }>();
+
+  const { data, isLoading } = useListLaunches();
 
   const searchWatch = useWatch({ control, name: "search" });
 
