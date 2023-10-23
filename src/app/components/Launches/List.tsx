@@ -30,6 +30,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FilterParams } from "@/service/resources/launches";
+import Link from "next/link";
+import { VideoOff, Youtube } from "lucide-react";
 
 const headerTableItems = [
   "Id",
@@ -102,7 +104,7 @@ export const List = () => {
             }}
           >
             <SelectTrigger className="max-w-[80px]">
-              <SelectValue placeholder="A cada" />
+              <SelectValue placeholder={limit} />
             </SelectTrigger>
             <SelectContent>
               {Array(10)
@@ -161,6 +163,15 @@ export const List = () => {
                       >
                         {launch.success ? "Sucesso" : "Falhou"}
                       </Text>
+                    </TableCell>
+                    <TableCell>
+                      {launch.links.webcast ? (
+                        <Link target="_blank" href={launch.links.webcast}>
+                          <Youtube />
+                        </Link>
+                      ) : (
+                        <VideoOff />
+                      )}
                     </TableCell>
                   </TableRow>
                 ))

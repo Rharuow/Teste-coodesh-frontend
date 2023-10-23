@@ -68,7 +68,6 @@ export type FilterParams = {
 };
 
 export const listLaunches = async (filter?: FilterParams) => {
-  console.log(filter);
   const launches = await api.get<{
     results: Array<Launch>;
     totalDocs: number;
