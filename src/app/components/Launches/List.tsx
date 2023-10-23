@@ -1,4 +1,10 @@
 "use client";
+import React, { useState } from "react";
+import Lottie from "lottie-react";
+import dayjs from "dayjs";
+import Image from "next/image";
+import { useForm, useWatch } from "react-hook-form";
+
 import { Text } from "@/components/Text";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,11 +18,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useListLaunches } from "@/hooks/launchesQuery/useQuery";
-import dayjs from "dayjs";
-import Image from "next/image";
-import React, { useCallback, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+
 import { createPagesList } from "./utils/createPagesList";
+
+import empty from "@public/no-launches.json";
 
 const headerTableItems = [
   "Id",
@@ -114,7 +119,16 @@ export const List = () => {
                     colSpan={headerTableItems.length}
                     className="h-24 text-center"
                   >
-                    Nenhum lançamento encontrado...
+                    <div className="flex flex-col items-center justify-center">
+                      <Lottie
+                        className="w-[220px]"
+                        animationData={empty}
+                        loop={true}
+                      />
+                      <Text className="text-slate">
+                        Nenhum Lançamento encontrado...
+                      </Text>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}
