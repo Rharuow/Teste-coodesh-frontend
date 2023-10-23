@@ -18,10 +18,10 @@ export default function Home() {
         />
       </div>
       <div className="flex flex-col md:flex-row">
-        <div className="flex p-3">
+        <div className="flex w-full p-3 md:w-[30%]">
           <PieChart />
         </div>
-        <div className="flex p-3">
+        <div className="flex w-full p-3 md:w-[70%]">
           <BarChart />
         </div>
       </div>
