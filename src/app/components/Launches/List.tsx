@@ -2,10 +2,15 @@
 import { Text } from "@/components/Text";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 export const List = () => {
-  const { register } = useForm();
+  const { register, control } = useForm<{
+    search: string;
+    results: "success" | "fail";
+  }>();
+
+  const searchWatch = useWatch({ control, name: "search" });
 
   return (
     <div className="flex w-full flex-wrap justify-center gap-3 rounded bg-accent p-3">
