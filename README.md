@@ -81,3 +81,8 @@ git clone git@github.com:Rharuow/Teste-coodesh-frontend.git && cd ./Teste-coodes
 7. Tanstack React Query develop tools
 
 ![tanstack-develop-tools](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/d8fc340a-b371-45c4-849d-3c086b4916ec)
+
+8. Filter and pagination to launches list
+
+[launches-list-mobile-screen.webm](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/84bf392e-d9ff-4600-881a-fc621c27e44f)
+
