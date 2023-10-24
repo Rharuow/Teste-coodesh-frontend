@@ -8,10 +8,10 @@
 
 #### Main Libs:
 
-  <a href="https://react-chartjs-2.js.org">react-chartjs-2</a>: To create pie and bar charts.
-  <a href="https://axios-http.com/">axios</a>: A simple way to do fetches data from API.
-  <a href="https://ui.shadcn.com/">shadcn:</a>: Create and custom components using tailwind.
-  <a href="https://tanstack.com/query/latest">Tanstack React Query</a>: Provides to use SWR strategy with hooks and context.
+ - <a href="https://react-chartjs-2.js.org">react-chartjs-2</a>: To create pie and bar charts.
+ - <a href="https://axios-http.com/">axios</a>: A simple way to do fetches data from API.
+ - <a href="https://ui.shadcn.com/">shadcn:</a>: Create and custom components using tailwind.
+ - <a href="https://tanstack.com/query/latest">Tanstack React Query</a>: Provides to use SWR strategy with hooks and context.
 
 ### Descrição
 
