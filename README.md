@@ -93,3 +93,7 @@ git clone git@github.com:Rharuow/Teste-coodesh-frontend.git && cd ./Teste-coodes
 
 [launches-list-mobile-screen.webm](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/84bf392e-d9ff-4600-881a-fc621c27e44f)
 
+### Next steps:
+
+- [ ] Dockerfile: Despide a being a project NextJs, that have a simple form to make deploy at vercel, it's a good challenger create a dockerfile to deploy others environments.
+- [ ] Test E2E: Using Jest.
