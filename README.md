@@ -19,8 +19,19 @@ This project are powered by API REST developed to <a href="https://github.com/Rh
 
 #### Install and Start
 
+<strong>Requirements</strong>
+
+- NodeJs: v18.17.1
+- NPM: 9.6.7
+
 ```bash
-git clone git@github.com:Rharuow/Teste-coodesh-frontend.git && cd ./Teste-coodesh-frontend && npm i && npm run dev
+git clone git@github.com:Rharuow/Teste-coodesh-frontend.git && cd ./Teste-coodesh-frontend && npm i
+```
+
+> **_NOTE:_** BEFORE RUNNING THIS PROJECT, SET VARIABLES AT .env FILE (NEXT_PUBLIC_API_URL=http://localhost:3000)
+
+```bash
+npm run dev
 ```
 
 #### What have in this project?
