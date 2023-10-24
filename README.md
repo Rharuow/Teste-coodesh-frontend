@@ -24,6 +24,9 @@ This project are powered by API REST developed to <a href="https://github.com/Rh
 - NodeJs: v18.17.1
 - NPM: 9.6.7
 
+> **Warning**
+INSTALL AND RUN BACKEND BEFORE INSTALL AND RUN FRONTEND
+
 #### clone and run backend
 ```bash
 git clone git@github.com:Rharuow/Teste-coodesh-backend.git && cd ./Teste-coodesh-backend && npm i && npm run dev
