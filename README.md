@@ -17,12 +17,18 @@
 
 This project are powered by API REST developed to <a href="https://github.com/Rharuow/Teste-coodesh-backend" target="_blank">Backend Fullstack Test</a>. The data are feed by <a href="https://github.com/r-spacex/SpaceX-API">SpaceX public API</a>.
 
-#### Install and Start
+### Install and Start
 
 <strong>Requirements</strong>
 
 - NodeJs: v18.17.1
 - NPM: 9.6.7
+
+#### clone and run backend
+```bash
+git clone git@github.com:Rharuow/Teste-coodesh-backend.git && cd ./Teste-coodesh-backend && npm i && npm run dev
+```
+> **_NOTE:_** .env file must have BASE_URL='http://localhost' and MONGODB_CONNECTION. Create account on <a href="https://www.mongodb.com/atlas/database">atlas db</a> and follow the attachment section to generate your MONGODB_CONNECTION.
 
 ```bash
 git clone git@github.com:Rharuow/Teste-coodesh-frontend.git && cd ./Teste-coodesh-frontend && npm i
@@ -108,3 +114,20 @@ npm run dev
 
 - [ ] Dockerfile: Despide a being a project NextJs, that have a simple form to make deploy at vercel, it's a good challenger create a dockerfile to deploy others environments.
 - [ ] Test E2E: Using Jest.
+
+# ATTACHMENT
+
+- <a href="https://cloud.mongodb.com/">Here<a> Click at database
+ ![frist](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/f7dc5574-d6ce-458a-b1c4-2d231a21aed4)
+
+-  Create a database free
+![second](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/67bad4ab-0832-41ad-919d-6799ed7235fd)
+
+- Click at connect button
+![third](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/eec38993-ec03-41c0-bef6-2dfe1a554ddf)
+
+- Click in this option
+![fourth](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/e1b558ff-1ea6-4321-a599-d0654b1294e9)
+
+- And finally, get the MONGODB_CONNECTION
+![last](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/b43864ed-744a-432a-8bd1-cd260e43353e)
