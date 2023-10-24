@@ -55,21 +55,22 @@ git clone git@github.com:Rharuow/Teste-coodesh-frontend.git && cd ./Teste-coodes
 #### Some prints
 
 1. Charts on desktop screen (Dark theme)
-   <img src="./public/charts-desktop-screen.png" alt="Charts on desktop screen"/>
+![charts-desktop-screen](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/1c07e8ad-78dc-4c43-a5ac-27ca8b32c997)
 
 1. Launches list table on desktop screen (Dark theme)
-   <img src="./public/launches-list-desktop-screen.png" alt="Launches list table on desktop screen">
+![launches-list-desktop-screen](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/349dd2f0-956e-4d11-b84c-61f70052a9d1)
 
 1. Charts on desktop screen (Light theme)
-   <img src="./public/charts-desktop-screen(light).png" alt="Charts on desktop screen"/>
+   ![charts-desktop-screen(light)](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/d931604d-811f-46dd-b2c1-90e64e0eeca2)
+
 1. Launches list table on desktop screen (Light theme)
-   <img src="./public/launches-list-desktop-screen(light).png" alt="Launches list table on desktop screen">
+![launches-list-desktop-screen(light)](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/d483132b-7609-4817-b540-ad3f1881ace3)
 
 1. Pie Chart on mobile screen (Dark theme)
-   <img src="./public/pie-chart-mobile-dark.png" alt="Charts on desktop screen"/>
+![pie-chart-mobile-dark](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/b6aea5c5-463f-4526-ac8f-4f4966c02b08)
 
 1. Bar Chart on mobile screen (Dark theme)
-   <img src="./public/bar-chart-mobile-dark.png" alt="Launches list table on desktop screen">
+![bar-chart-mobile-dark](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/67600d25-6ddf-44a6-a021-794aaceb3f37)
 
 1. Tanstack React Query develop tools
-   <img src="./public/tanstack-develop-tools.png" alt="Tanstack React Query develop tools">
+![tanstack-develop-tools](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/d8fc340a-b371-45c4-849d-3c086b4916ec)
