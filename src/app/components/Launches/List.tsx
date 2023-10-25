@@ -35,11 +35,13 @@ import {
   ChevronLeft,
   ChevronRight,
   RocketIcon,
+  Share2,
   VideoOff,
   Youtube,
 } from "lucide-react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const headerTableItems = [
   "Id",
@@ -52,13 +54,30 @@ const headerTableItems = [
 ];
 
 export const List = () => {
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const pathname = usePathname();
+
+  console.log(params.get("search"));
+  console.log(searchParams.getAll("search"));
+
   const { register, control, setValue } = useForm<{
     search: string;
     results: FilterParams["results"];
     limit?: FilterParams["limit"];
-  }>();
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  }>({
+    defaultValues: {
+      search: params.get("search") ?? "",
+      results:
+        params.get("results") === "fail" || params.get("results") === "success"
+          ? (params.get("results") as "fail" | "success")
+          : undefined,
+    },
+  });
+  const [page, setPage] = useState(
+    params.get("page") ? Number(params.get("page")) : 1,
+  );
+  const [limit, setLimit] = useState(Number(params.get("limit")) || 5);
   const searchWatch = useWatch({ control, name: "search" });
   const resultsWatch = useWatch({ control, name: "results" });
 
@@ -72,12 +91,29 @@ export const List = () => {
   const listPages =
     data && createPagesList({ page, totalPages: data.totalPages });
 
+  const handleShareSearchLaunches = () => {
+    let linkShared = `${process.env.NEXT_PUBLIC_BASE_URL}/?limit=${limit}&page=${page}`;
+
+    if (resultsWatch) linkShared = linkShared + `&results=${resultsWatch}`;
+    if (searchWatch) linkShared = linkShared + `&search=${searchWatch}`;
+
+    navigator.clipboard.writeText(linkShared);
+  };
+
   return (
     <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded bg-accent p-3">
       <Text className="text-right text-sm text-slate-400">
         Registros de lançamentos
       </Text>
-      <div className="flex text-xs md:text-sm">
+      <Button
+        className="md:hidden"
+        size={"icon"}
+        variant={"outline"}
+        onClick={() => handleShareSearchLaunches()}
+      >
+        <Share2 size={14} />
+      </Button>
+      <div className="flex text-xs md:items-center md:gap-3 md:text-sm">
         <Text className="hidden text-muted-foreground md:inline">
           {data?.totalDocs} Lançament
           {data && data.totalDocs && data.totalDocs > 1 ? "os" : "o"}
@@ -85,6 +121,14 @@ export const List = () => {
         <Text className="text-muted-foreground md:hidden">
           {data?.totalDocs} Total
         </Text>
+        <Button
+          className="hidden md:flex"
+          size={"icon"}
+          variant={"outline"}
+          onClick={() => handleShareSearchLaunches()}
+        >
+          <Share2 size={14} />
+        </Button>
       </div>
 
       <div className="w-full">
@@ -94,7 +138,12 @@ export const List = () => {
           <Input
             className="grow"
             placeholder="Nome da missão ou do foguete"
-            {...register("search", { onChange: () => setPage(1) })}
+            {...register("search", {
+              onChange: (e) => {
+                params.set("search", e);
+                setPage(1);
+              },
+            })}
           />
           <div className="flex w-full gap-3">
             <Select
