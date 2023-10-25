@@ -1,5 +1,7 @@
 # Fullstack Challenge 🏅 Space X API
 
+> This is a challenge by <a href="https://coodesh.com/">Coodesh</a>
+
 ## Frontend teste
 
 ### STACK
@@ -8,10 +10,10 @@
 
 #### Main Libs:
 
- - <a href="https://react-chartjs-2.js.org">react-chartjs-2</a>: To create pie and bar charts.
- - <a href="https://axios-http.com/">axios</a>: A simple way to do fetches data from API.
- - <a href="https://ui.shadcn.com/">shadcn:</a>: Create and custom components using tailwind.
- - <a href="https://tanstack.com/query/latest">Tanstack React Query</a>: Provides to use SWR strategy with hooks and context.
+- <a href="https://react-chartjs-2.js.org">react-chartjs-2</a>: To create pie and bar charts.
+- <a href="https://axios-http.com/">axios</a>: A simple way to do fetches data from API.
+- <a href="https://ui.shadcn.com/">shadcn:</a>: Create and custom components using tailwind.
+- <a href="https://tanstack.com/query/latest">Tanstack React Query</a>: Provides to use SWR strategy with hooks and context.
 
 ### Descrição
 
@@ -25,12 +27,14 @@ This project are powered by API REST developed to <a href="https://github.com/Rh
 - NPM: 9.6.7
 
 > **Warning**
-INSTALL AND RUN BACKEND BEFORE INSTALL AND RUN FRONTEND
+> INSTALL AND RUN BACKEND BEFORE INSTALL AND RUN FRONTEND
 
 #### clone and run backend
+
 ```bash
 git clone git@github.com:Rharuow/Teste-coodesh-backend.git && cd ./Teste-coodesh-backend && npm i && npm run dev
 ```
+
 > **_NOTE:_** .env file must have BASE_URL='http://localhost' and MONGODB_CONNECTION. Create account on <a href="https://www.mongodb.com/atlas/database">atlas db</a> and follow the [ATTACHMENT](#attachment) section to generate your MONGODB_CONNECTION.
 
 ```bash
@@ -121,16 +125,16 @@ npm run dev
 <h1 id="attachment">ATTACHMENT</h1>
 
 - <a href="https://cloud.mongodb.com/">Here<a> Click at database
- ![frist](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/f7dc5574-d6ce-458a-b1c4-2d231a21aed4)
+  ![frist](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/f7dc5574-d6ce-458a-b1c4-2d231a21aed4)
 
--  Create a database free
-![second](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/67bad4ab-0832-41ad-919d-6799ed7235fd)
+- Create a database free
+  ![second](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/67bad4ab-0832-41ad-919d-6799ed7235fd)
 
 - Click at connect button
-![third](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/eec38993-ec03-41c0-bef6-2dfe1a554ddf)
+  ![third](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/eec38993-ec03-41c0-bef6-2dfe1a554ddf)
 
 - Click in this option
-![fourth](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/e1b558ff-1ea6-4321-a599-d0654b1294e9)
+  ![fourth](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/e1b558ff-1ea6-4321-a599-d0654b1294e9)
 
 - And finally, get the MONGODB_CONNECTION
-![last](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/b43864ed-744a-432a-8bd1-cd260e43353e)
+  ![last](https://github.com/Rharuow/Teste-coodesh-frontend/assets/19626398/b43864ed-744a-432a-8bd1-cd260e43353e)
