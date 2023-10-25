@@ -61,7 +61,6 @@ export const List = () => {
   const [limit, setLimit] = useState(5);
   const searchWatch = useWatch({ control, name: "search" });
   const resultsWatch = useWatch({ control, name: "results" });
-  const limitWatch = useWatch({ control, name: "limit" });
 
   const { data, isLoading } = useListLaunches({
     page,
@@ -225,69 +224,88 @@ export const List = () => {
             </TableBody>
           </Table>
           <div className="flex flex-col gap-3 md:hidden">
-            {data?.results.map((launch, index) => (
-              <Card key={index}>
-                <div className="flex gap-3 p-3">
-                  <div className="flex">
-                    <Text>{index}</Text>
-                  </div>
-                  <div className="flex flex-1 items-start justify-center">
-                    <Text className="text-center">{launch.name}</Text>
-                  </div>
-                  <div className="flex items-start justify-center">
-                    {launch.links.patch.small ? (
-                      <Image
-                        src={launch.links.patch.small}
-                        alt="logo mission"
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        className="w-[15px]"
-                      />
-                    ) : (
-                      <Text>
-                        <RocketIcon className="w-[15px]" />
-                      </Text>
-                    )}
-                  </div>
+            {isLoading ? (
+              <Card className="p-6">
+                <div className="flex justify-center">
+                  <Loading />
                 </div>
-                <Separator />
-                <CardContent>
-                  <div className="flex flex-col gap-2 py-2">
-                    <div className="flex justify-between">
-                      <Text className="text-xs">Foguete:</Text>
-                      <Text className="text-xs">{launch.rocket.name}</Text>
+              </Card>
+            ) : data?.results.length === 0 ? (
+              <div className="flex flex-col items-center justify-center">
+                <Lottie
+                  className="w-[220px]"
+                  animationData={empty}
+                  loop={true}
+                />
+                <Text className="text-slate text-center">
+                  Nenhum Lançamento encontrado...
+                </Text>
+              </div>
+            ) : (
+              data?.results.map((launch, index) => (
+                <Card key={index}>
+                  <div className="flex gap-3 p-3">
+                    <div className="flex">
+                      <Text>{index}</Text>
                     </div>
-                    <div className="flex justify-between">
-                      <Text className="text-xs">Data:</Text>
-                      <Text className="text-xs">
-                        {dayjs(launch.date_utc).format("DD/MM/YYYY")}
-                      </Text>
+                    <div className="flex flex-1 items-start justify-center">
+                      <Text className="text-center">{launch.name}</Text>
                     </div>
-                    <div className="flex justify-between">
-                      <Text className="text-xs">Sucesso:</Text>
-                      <Text
-                        className={`text-xs ${
-                          launch.success ? "text-green-500" : "text-red-500"
-                        }`}
-                      >
-                        {launch.success ? "sucesso" : "Falha"}
-                      </Text>
-                    </div>
-                    <div className="flex justify-between">
-                      <Text className="text-xs">Vídeo:</Text>
-                      {launch.links.webcast ? (
-                        <Link target="_blank" href={launch.links.webcast}>
-                          <Youtube className="text-red-500" />
-                        </Link>
+                    <div className="flex items-start justify-center">
+                      {launch.links.patch.small ? (
+                        <Image
+                          src={launch.links.patch.small}
+                          alt="logo mission"
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          className="w-[15px]"
+                        />
                       ) : (
-                        <VideoOff />
+                        <Text>
+                          <RocketIcon className="w-[15px]" />
+                        </Text>
                       )}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <Separator />
+                  <CardContent>
+                    <div className="flex flex-col gap-2 py-2">
+                      <div className="flex justify-between">
+                        <Text className="text-xs">Foguete:</Text>
+                        <Text className="text-xs">{launch.rocket.name}</Text>
+                      </div>
+                      <div className="flex justify-between">
+                        <Text className="text-xs">Data:</Text>
+                        <Text className="text-xs">
+                          {dayjs(launch.date_utc).format("DD/MM/YYYY")}
+                        </Text>
+                      </div>
+                      <div className="flex justify-between">
+                        <Text className="text-xs">Sucesso:</Text>
+                        <Text
+                          className={`text-xs ${
+                            launch.success ? "text-green-500" : "text-red-500"
+                          }`}
+                        >
+                          {launch.success ? "sucesso" : "Falha"}
+                        </Text>
+                      </div>
+                      <div className="flex justify-between">
+                        <Text className="text-xs">Vídeo:</Text>
+                        {launch.links.webcast ? (
+                          <Link target="_blank" href={launch.links.webcast}>
+                            <Youtube className="text-red-500" />
+                          </Link>
+                        ) : (
+                          <VideoOff />
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
