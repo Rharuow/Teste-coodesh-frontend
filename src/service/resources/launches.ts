@@ -67,15 +67,17 @@ export type FilterParams = {
   page?: number;
 };
 
+export type LaunchListResource = {
+  results: Array<Launch>;
+  totalDocs: number;
+  totalPages: number;
+  page: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+};
+
 export const listLaunches = async (filter?: FilterParams) => {
-  const launches = await api.get<{
-    results: Array<Launch>;
-    totalDocs: number;
-    totalPages: number;
-    page: number;
-    hasNext: boolean;
-    hasPrev: boolean;
-  }>("/launches", {
+  const launches = await api.get<LaunchListResource>("/launches", {
     params: filter ?? {},
   });
 

@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Lottie from "lottie-react";
-import dayjs from "dayjs";
-import Image from "next/image";
 import { useForm, useWatch } from "react-hook-form";
 
 import { Text } from "@/components/Text";
@@ -10,38 +8,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loading } from "@/components/ui/loading";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { useListLaunches } from "@/hooks/launchesQuery/useQuery";
-
-import { createPagesList } from "./utils/createPagesList";
-
-import empty from "@public/no-launches.json";
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import { useListLaunches } from "@/hooks/launchesQuery/useQuery";
+
+import { createPagesList } from "./utils/createPagesList";
+
+import empty from "@public/no-launches.json";
 import { FilterParams } from "@/service/resources/launches";
-import Link from "next/link";
-import {
-  ChevronLeft,
-  ChevronRight,
-  RocketIcon,
-  Share2,
-  VideoOff,
-  Youtube,
-} from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { usePathname, useSearchParams } from "next/navigation";
+import { ChevronLeft, ChevronRight, Share2 } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { useSearchParams } from "next/navigation";
+import { ListTableLaunches } from "./Table";
+import { ListCardLaunches } from "./Card";
 
 const headerTableItems = [
   "Id",
@@ -56,10 +40,6 @@ const headerTableItems = [
 export const List = () => {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
-  const pathname = usePathname();
-
-  console.log(params.get("search"));
-  console.log(searchParams.getAll("search"));
 
   const { register, control, setValue } = useForm<{
     search: string;
@@ -186,92 +166,11 @@ export const List = () => {
           </div>
         </div>
         <div className="rounded-md border">
-          <Table className="hidden md:table">
-            <TableHeader>
-              <TableRow>
-                {headerTableItems.map((item, index) => (
-                  <TableHead key={index}>{item}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {isLoading ? (
-                <TableRow>
-                  <TableCell colSpan={headerTableItems.length}>
-                    <div className="flex justify-center">
-                      <Loading />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ) : data?.results.length ? (
-                data.results.map((launch, index) => (
-                  <TableRow key={launch.id}>
-                    <TableCell>
-                      <Text>{index}</Text>
-                    </TableCell>
-                    <TableCell>
-                      <Image
-                        src={
-                          launch.links.patch.small ||
-                          "/mission-logo-default.png"
-                        }
-                        alt="Mission's logo"
-                        width={30}
-                        height={30}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Text>{launch.name}</Text>
-                    </TableCell>
-                    <TableCell>
-                      <Text>
-                        {dayjs(launch.date_local).format("DD/MM/YYYY")}
-                      </Text>
-                    </TableCell>
-                    <TableCell>
-                      <Text>{launch.rocket.name}</Text>
-                    </TableCell>
-                    <TableCell>
-                      <Text
-                        className={
-                          launch.success ? "text-green-500" : "text-red-500"
-                        }
-                      >
-                        {launch.success ? "Sucesso" : "Falhou"}
-                      </Text>
-                    </TableCell>
-                    <TableCell>
-                      {launch.links.webcast ? (
-                        <Link target="_blank" href={launch.links.webcast}>
-                          <Youtube className="text-red-500" />
-                        </Link>
-                      ) : (
-                        <VideoOff />
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={headerTableItems.length}
-                    className="h-24 text-center"
-                  >
-                    <div className="flex flex-col items-center justify-center">
-                      <Lottie
-                        className="w-[220px]"
-                        animationData={empty}
-                        loop={true}
-                      />
-                      <Text className="text-slate">
-                        Nenhum Lançamento encontrado...
-                      </Text>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+          <ListTableLaunches
+            headerTableItems={headerTableItems}
+            isLoading={isLoading}
+            resource={data}
+          />
           <div className="flex flex-col gap-3 md:hidden">
             {isLoading ? (
               <Card className="p-6">
@@ -292,67 +191,7 @@ export const List = () => {
               </div>
             ) : (
               data?.results.map((launch, index) => (
-                <Card key={index}>
-                  <div className="flex gap-3 p-3">
-                    <div className="flex">
-                      <Text>{index}</Text>
-                    </div>
-                    <div className="flex flex-1 items-start justify-center">
-                      <Text className="text-center">{launch.name}</Text>
-                    </div>
-                    <div className="flex items-start justify-center">
-                      {launch.links.patch.small ? (
-                        <Image
-                          src={launch.links.patch.small}
-                          alt="logo mission"
-                          width={0}
-                          height={0}
-                          sizes="100vw"
-                          className="w-[15px]"
-                        />
-                      ) : (
-                        <Text>
-                          <RocketIcon className="w-[15px]" />
-                        </Text>
-                      )}
-                    </div>
-                  </div>
-                  <Separator />
-                  <CardContent>
-                    <div className="flex flex-col gap-2 py-2">
-                      <div className="flex justify-between">
-                        <Text className="text-xs">Foguete:</Text>
-                        <Text className="text-xs">{launch.rocket.name}</Text>
-                      </div>
-                      <div className="flex justify-between">
-                        <Text className="text-xs">Data:</Text>
-                        <Text className="text-xs">
-                          {dayjs(launch.date_utc).format("DD/MM/YYYY")}
-                        </Text>
-                      </div>
-                      <div className="flex justify-between">
-                        <Text className="text-xs">Sucesso:</Text>
-                        <Text
-                          className={`text-xs ${
-                            launch.success ? "text-green-500" : "text-red-500"
-                          }`}
-                        >
-                          {launch.success ? "sucesso" : "Falha"}
-                        </Text>
-                      </div>
-                      <div className="flex justify-between">
-                        <Text className="text-xs">Vídeo:</Text>
-                        {launch.links.webcast ? (
-                          <Link target="_blank" href={launch.links.webcast}>
-                            <Youtube className="text-red-500" />
-                          </Link>
-                        ) : (
-                          <VideoOff />
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <ListCardLaunches id={index} launch={launch} key={launch.id} />
               ))
             )}
           </div>
