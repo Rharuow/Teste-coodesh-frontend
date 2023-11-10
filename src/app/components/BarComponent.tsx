@@ -34,12 +34,15 @@ export const BarComponent = ({
       }}
       height={200}
       options={{
+        // Return default options to style the bar labels and background color according to the theme.
         ...optionsReactChart(theme as Theme),
         scales: {
           x: {
+            // This property enables the bars to overlap on the x-axis.
             stacked: true,
           },
           y: {
+            // Ensuring that the charts start from zero on the y-axis.
             beginAtZero: true,
           },
         },
