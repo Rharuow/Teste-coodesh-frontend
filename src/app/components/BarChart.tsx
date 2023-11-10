@@ -12,8 +12,15 @@ type Launch = {
   color: string;
 };
 
-type Metadata = {
-  [key: string]: Array<Launch>;
+type LaunchesPerYear = {
+  [year: string]: Array<Launch>;
+};
+
+type RocketLaunch = {
+  year: string;
+  success: boolean;
+  id: string;
+  _id: string;
 };
 
 type Rocket = {
@@ -21,24 +28,44 @@ type Rocket = {
   id: string;
   name: string;
   color: string;
-  launches: Array<{
-    year: string;
-    success: boolean;
-    id: string;
-    _id: string;
-  }>;
+  launches: Array<RocketLaunch>;
   __v: number;
 };
 
-type Data = {
+type Resource = {
   rockets: Array<Rocket>;
-  metadata: Metadata;
+  metadata: LaunchesPerYear;
 };
 
 export const BarChart = async () => {
   const {
-    data: { metadata, rockets },
-  } = await api.get<Data>("/stats/bar");
+    data: { metadata: launchesPerYear, rockets: rocketsLaunchesPerYear },
+  } = await api.get<Resource>("/stats/bar");
+
+  const getLaunchesPerYears = ({ rocket }: { rocket: Rocket }) =>
+    Object.keys(launchesPerYear).map((year) =>
+      rocket.launches.some((launch) => launch.year === year)
+        ? Number(
+            launchesPerYear[year].find(
+              (launch) => launch.year === year && launch.id === rocket.id,
+            )?.amountLaunches,
+          )
+        : 0,
+    );
+
+  const getRocketLaunchesPerYear = () =>
+    rocketsLaunchesPerYear.map((rocket, index) => ({
+      // Label for bar chart.
+      label: rocket.name,
+      // Color for bar chart.
+      backgroundColor: rocket.color,
+      // Bring forward the smallest bars, meaning the rockets with fewer launches are brought to the forefront.
+      order: -index,
+      // Array of the number of rocket launches per year.
+      data: getLaunchesPerYears({ rocket }),
+      // Width scale spacing between each rocket launch data.
+      ...(index > 0 && { categoryPercentage: 1 / index }),
+    }));
 
   return (
     <div className="flex w-full flex-wrap justify-center gap-3 rounded bg-accent p-3">
@@ -46,22 +73,8 @@ export const BarChart = async () => {
         Lançamentos por ano de cada Foguete
       </Text>
       <BarComponent
-        datasets={rockets.map((rocket, index) => ({
-          label: rocket.name,
-          backgroundColor: rocket.color,
-          order: -index,
-          data: Object.keys(metadata).map((year) =>
-            rocket.launches.some((launch) => launch.year === year)
-              ? Number(
-                  metadata[year].find(
-                    (launch) => launch.year === year && launch.id === rocket.id,
-                  )?.amountLaunches,
-                )
-              : 0,
-          ),
-          ...(index > 0 && { categoryPercentage: 1 / index }),
-        }))}
-        labels={Object.keys(metadata)}
+        datasets={getRocketLaunchesPerYear()}
+        labels={Object.keys(launchesPerYear)}
       />
     </div>
   );
