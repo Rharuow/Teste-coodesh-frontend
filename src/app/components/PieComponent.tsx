@@ -26,6 +26,7 @@ export const PieComponent = ({
         datasets,
       }}
       options={{
+        // Return default options to style the bar labels and background color according to the theme.
         ...optionsReactChart(theme as Theme),
         plugins: {
           ...optionsReactChart(theme as Theme).plugins,
