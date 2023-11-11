@@ -22,9 +22,11 @@ import { ResultSelect } from "./Filter/ResultSelect";
 import { LimitSelect } from "./Filter/LimitSelect";
 
 import empty from "@public/no-launches.json";
+import { useDeviseContext } from "@/components/providers/devise";
 
 export const List = () => {
   const searchParams = useSearchParams();
+  const { isMobile } = useDeviseContext();
   const params = new URLSearchParams(searchParams);
 
   const methods = useForm<{
@@ -127,39 +129,42 @@ export const List = () => {
           </FormProvider>
         </div>
         <div className="rounded-md border">
-          <ListTableLaunches
-            isLoading={isLoading}
-            calculeIdPerPage={calculeIdPerPage}
-            resource={data}
-          />
-          <div className="flex flex-col gap-3 md:hidden">
-            {isLoading ? (
-              <Card className="p-6">
-                <div className="flex justify-center">
-                  <Loading />
+          {isMobile ? (
+            <div className="flex flex-col gap-3 md:hidden">
+              {isLoading ? (
+                <Card className="p-6">
+                  <div className="flex justify-center">
+                    <Loading />
+                  </div>
+                </Card>
+              ) : data?.results.length === 0 ? (
+                <div className="flex flex-col items-center justify-center">
+                  <Lottie
+                    className="w-[220px]"
+                    animationData={empty}
+                    loop={true}
+                  />
+                  <Text className="text-slate text-center">
+                    Nenhum Lançamento encontrado...
+                  </Text>
                 </div>
-              </Card>
-            ) : data?.results.length === 0 ? (
-              <div className="flex flex-col items-center justify-center">
-                <Lottie
-                  className="w-[220px]"
-                  animationData={empty}
-                  loop={true}
-                />
-                <Text className="text-slate text-center">
-                  Nenhum Lançamento encontrado...
-                </Text>
-              </div>
-            ) : (
-              data?.results.map((launch, index) => (
-                <ListCardLaunches
-                  id={calculeIdPerPage(index)}
-                  launch={launch}
-                  key={launch.id}
-                />
-              ))
-            )}
-          </div>
+              ) : (
+                data?.results.map((launch, index) => (
+                  <ListCardLaunches
+                    id={calculeIdPerPage(index)}
+                    launch={launch}
+                    key={launch.id}
+                  />
+                ))
+              )}
+            </div>
+          ) : (
+            <ListTableLaunches
+              isLoading={isLoading}
+              calculeIdPerPage={calculeIdPerPage}
+              resource={data}
+            />
+          )}
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="scrollbar-hide flex  flex-1 gap-2 overflow-x-scroll">

@@ -5,6 +5,7 @@ import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme";
 import { ModeToggle } from "@/components/ModeToggle";
 import { TanstackProvider } from "@/components/providers/TanstackProvider";
+import { DeviseProvider } from "@/components/providers/devise";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,16 +26,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <TanstackProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-          >
-            <ModeToggle />
-            {children}
-          </ThemeProvider>
-        </TanstackProvider>
+        <DeviseProvider>
+          <TanstackProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              disableTransitionOnChange
+            >
+              <ModeToggle />
+              {children}
+            </ThemeProvider>
+          </TanstackProvider>
+        </DeviseProvider>
       </body>
     </html>
   );
