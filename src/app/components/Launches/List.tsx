@@ -1,47 +1,33 @@
 "use client";
 import React, { useState } from "react";
 import Lottie from "lottie-react";
-import { useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { ChevronLeft, ChevronRight, Share2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 import { Text } from "@/components/Text";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loading } from "@/components/ui/loading";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { useListLaunches } from "@/hooks/launchesQuery/useQuery";
 
 import { createPagesList } from "./utils/createPagesList";
 
-import empty from "@public/no-launches.json";
 import { FilterParams } from "@/service/resources/launches";
-import { ChevronLeft, ChevronRight, Share2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { useSearchParams } from "next/navigation";
 import { ListTableLaunches } from "./Table";
 import { ListCardLaunches } from "./Card";
+import { ResultSelect } from "./Filter/ResultSelect";
+import { LimitSelect } from "./Filter/LimitSelect";
 
-const headerTableItems = [
-  "Id",
-  "Logo",
-  "Missão",
-  "Data de Lançamento",
-  "Foguete",
-  "Resultado",
-  "Vídeo",
-];
+import empty from "@public/no-launches.json";
 
 export const List = () => {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
 
-  const { register, control, setValue } = useForm<{
+  const methods = useForm<{
     search: string;
     results: FilterParams["results"];
     limit?: FilterParams["limit"];
@@ -54,6 +40,7 @@ export const List = () => {
           : undefined,
     },
   });
+  const { register, control } = methods;
   const [page, setPage] = useState(
     params.get("page") ? Number(params.get("page")) : 1,
   );
@@ -79,6 +66,8 @@ export const List = () => {
 
     navigator.clipboard.writeText(linkShared);
   };
+
+  const calculeIdPerPage = (index: number) => index + (page - 1) * limit;
 
   return (
     <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded bg-accent p-3">
@@ -113,62 +102,34 @@ export const List = () => {
 
       <div className="w-full">
         <div className="flex flex-col items-center gap-3 py-4 md:flex-row">
-          <input type="hidden" {...register("results")} />
-          <input type="hidden" {...register("limit")} />
-          <Input
-            className="grow"
-            placeholder="Nome da missão ou do foguete"
-            {...register("search", {
-              onChange: (e) => {
-                params.set("search", e);
-                setPage(1);
-              },
-            })}
-          />
-          <div className="flex w-full gap-3">
-            <Select
-              onValueChange={(value) => {
-                value !== "all"
-                  ? setValue("results", value as FilterParams["results"])
-                  : setValue("results", undefined);
-                setPage(1);
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Resultados" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todos</SelectItem>
-                <SelectItem value="success">Sucesso</SelectItem>
-                <SelectItem value="fail">Falha</SelectItem>
-              </SelectContent>
-            </Select>
+          <FormProvider {...methods}>
+            <input type="hidden" {...register("results")} />
+            <input type="hidden" {...register("limit")} />
+            <Input
+              className="grow"
+              placeholder="Nome da missão ou do foguete"
+              {...register("search", {
+                onChange: (e) => {
+                  params.set("search", e);
+                  setPage(1);
+                },
+              })}
+            />
+            <div className="flex w-full gap-3">
+              <ResultSelect setPage={setPage} />
 
-            <Select
-              onValueChange={(value) => {
-                setLimit(Number(value));
-                setPage(1);
-              }}
-            >
-              <SelectTrigger className="max-w-[80px]">
-                <SelectValue placeholder={limit} />
-              </SelectTrigger>
-              <SelectContent>
-                {Array(10)
-                  .fill(null)
-                  .map((_, index) => (
-                    <SelectItem key={index} value={String((index + 1) * 5)}>
-                      {(index + 1) * 5}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
-          </div>
+              <LimitSelect
+                limit={limit}
+                setLimit={setLimit}
+                setPage={setPage}
+              />
+            </div>
+          </FormProvider>
         </div>
         <div className="rounded-md border">
           <ListTableLaunches
-            headerTableItems={headerTableItems}
             isLoading={isLoading}
+            calculeIdPerPage={calculeIdPerPage}
             resource={data}
           />
           <div className="flex flex-col gap-3 md:hidden">
@@ -191,7 +152,11 @@ export const List = () => {
               </div>
             ) : (
               data?.results.map((launch, index) => (
-                <ListCardLaunches id={index} launch={launch} key={launch.id} />
+                <ListCardLaunches
+                  id={calculeIdPerPage(index)}
+                  launch={launch}
+                  key={launch.id}
+                />
               ))
             )}
           </div>

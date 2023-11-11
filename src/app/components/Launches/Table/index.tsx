@@ -19,21 +19,31 @@ import { LaunchListResource } from "@/service/resources/launches";
 
 import empty from "@public/no-launches.json";
 
+const headerTableItems = [
+  "Id",
+  "Logo",
+  "Missão",
+  "Data de Lançamento",
+  "Foguete",
+  "Resultado",
+  "Vídeo",
+];
+
 export const ListTableLaunches = ({
-  headerTableItems,
   isLoading,
   resource,
+  calculeIdPerPage,
 }: {
-  headerTableItems: Array<string>;
   isLoading: boolean;
+  calculeIdPerPage: (index: number) => number;
   resource?: LaunchListResource;
 }) => {
   return (
     <Table className="hidden md:table">
       <TableHeader>
         <TableRow>
-          {headerTableItems.map((item, index) => (
-            <TableHead key={index}>{item}</TableHead>
+          {headerTableItems.map((header, index) => (
+            <TableHead key={index}>{header}</TableHead>
           ))}
         </TableRow>
       </TableHeader>
@@ -50,7 +60,7 @@ export const ListTableLaunches = ({
           resource.results.map((launch, index) => (
             <TableRow key={launch.id}>
               <TableCell>
-                <Text>{index}</Text>
+                <Text>{calculeIdPerPage(index)}</Text>
               </TableCell>
               <TableCell>
                 <Image
